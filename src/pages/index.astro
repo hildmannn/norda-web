@@ -49,7 +49,7 @@ const footer = [
       <a href="#inicio" class="hdr-logo" aria-label="Norda, volver al inicio"><Wordmark size={24} /></a>
       <div class="hdr-links">
         {NAV.map(([label, id]) => (
-          <a href={`#${id}`} class="hdr-link" data-nav={id}>{label}<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2 6.5C22 3 46 3.5 64 4.8S90 6.5 98 3.6" fill="none" stroke="var(--lima-500)" stroke-width="3.2" stroke-linecap="round" /></svg></a>
+          <a href={`#${id}`} class="hdr-link" data-nav={id}>{label}<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none"><path pathLength="1" d="M2 6.5C22 3 46 3.5 64 4.8S90 6.5 98 3.6" fill="none" stroke="var(--lima-500)" stroke-width="3.2" stroke-linecap="round" /></svg></a>
         ))}
       </div>
       <div class="hdr-right">
@@ -129,7 +129,9 @@ const footer = [
               {[['store', 'Comercios'], ['utensils', 'Gastronomía'], ['stethoscope', 'Profesionales y consultorios'], ['sprout', 'Emprendimientos']].map(([icon, text]) => (
                 <span class="chip"><Icon name={icon} size={16} />{text}</span>
               ))}
+              <span class="chip chip-more"><Icon name="plus" size={16} />Y cualquier otro rubro</span>
             </div>
+            <p class="forwho-note">Son solo algunos ejemplos: si tenés un negocio, sea del rubro que sea, armamos una web pensada para vos.</p>
           </div>
         </div>
 
@@ -540,18 +542,37 @@ const footer = [
   const fab = $('#fab');
   const navLinks = $$('[data-nav]');
   const mmenu = $('#mmenu');
-  const onScroll = () => {
-    const y = window.scrollY, vh = window.innerHeight;
-    hdr.classList.toggle('scrolled', y > 24);
+  // El subrayado se actualiza recién cuando el scroll se detiene: si se pasa de Webs a
+  // Preguntas, se dibuja directo en la última sección, sin marcar las del medio.
+  const setActive = (active: string) => navLinks.forEach((a) => {
+    if (a.dataset.nav === active) a.setAttribute('aria-current', 'true');
+    else a.removeAttribute('aria-current');
+  });
+  const updateActive = () => {
+    const vh = window.innerHeight;
     let active = '';
     ['webs', 'sistemas', 'nordi', 'proceso', 'nosotros', 'preguntas'].forEach((id) => {
       const r = document.getElementById(id)!.getBoundingClientRect();
       if (r.top < vh * 0.4 && r.bottom > 100) active = id;
     });
-    navLinks.forEach((a) => {
-      if (a.dataset.nav === active) a.setAttribute('aria-current', 'true');
-      else a.removeAttribute('aria-current');
-    });
+    setActive(active);
+  };
+  let settleTimer = 0;
+  let navTarget = '';
+  const onSettle = () => {
+    clearTimeout(settleTimer);
+    if (navTarget) { setActive(navTarget); navTarget = ''; } else updateActive();
+  };
+  navLinks.forEach((a) => a.addEventListener('click', () => {
+    navTarget = a.dataset.nav!;
+    setActive(navTarget);
+  }));
+  if ('onscrollend' in window) window.addEventListener('scrollend', onSettle);
+  const onScroll = () => {
+    const y = window.scrollY, vh = window.innerHeight;
+    hdr.classList.toggle('scrolled', y > 24);
+    clearTimeout(settleTimer);
+    settleTimer = window.setTimeout(onSettle, 150);
     const pastHero = document.getElementById('webs')!.getBoundingClientRect().top < vh * 0.6;
     const ctVis = document.getElementById('contacto')!.getBoundingClientRect().top < vh * 0.75;
     fab.classList.toggle('show', pastHero && !ctVis && mmenu.hidden);
@@ -559,6 +580,7 @@ const footer = [
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
   onScroll();
+  updateActive();
 
   // ── Menú mobile
   const burger = $('#menu-open');

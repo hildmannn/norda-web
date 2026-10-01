@@ -112,8 +112,9 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:none;box-shado
 .hdr-links{display:flex;gap:2px}
 .hdr-link{position:relative;padding:10px 14px;border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;color:var(--tinta-900);transition:background var(--dur-base)}
 .hdr-link:hover{background:var(--crema-100)}
-.hdr-link svg{position:absolute;left:12px;bottom:3px;width:calc(100% - 24px);height:8px;display:none}
-.hdr-link[aria-current="true"] svg{display:block}
+.hdr-link svg{position:absolute;left:12px;bottom:3px;width:calc(100% - 24px);height:8px}
+.hdr-link path{stroke-dasharray:1;stroke-dashoffset:1}
+.hdr-link[aria-current="true"] path{stroke-dashoffset:0;transition:stroke-dashoffset var(--dur-lento) var(--ease-suave)}
 .hdr-right{display:flex;align-items:center;gap:6px}
 .hdr-cta{height:44px;padding:0 20px}
 .hdr-burger{width:44px;height:44px;border-radius:999px;border:0;background:var(--crema-100);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tinta-900)}
@@ -173,6 +174,8 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:none;box-shado
 .forwho h3{font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-0.01em}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:var(--crema-100);font-size:15px;font-weight:600}
+.chip-more{background:transparent;border:1.5px dashed var(--crema-300);padding:8.5px 14.5px}
+.forwho-note{font-size:15px;line-height:1.5;color:var(--tinta-700);text-wrap:pretty}
 .price-card{position:relative;display:flex;flex-direction:column;gap:24px;padding:clamp(28px,3vw,40px);border-radius:32px;background:#fff;border:2.5px solid var(--lima-400);box-shadow:var(--shadow-lg)}
 .price-card h3{font-family:var(--font-display);font-weight:700;font-size:26px;letter-spacing:-0.02em}
 .price-row{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 10px}
