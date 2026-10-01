@@ -1,0 +1,8 @@
+---
+// Imagen placeholder rayada con etiqueta en mayúsculas (reemplazar por fotos reales).
+interface Props { label: string; alt: string; ratio?: string; tone?: 'crema' | 'lima'; vertical?: boolean; class?: string; style?: string }
+const { label, alt, ratio, tone = 'crema', vertical, class: cls, style } = Astro.props;
+---
+<div role="img" aria-label={alt} class:list={['ph', `ph-${tone}`, cls]} style={`${ratio ? `aspect-ratio:${ratio};` : ''}${style ?? ''}`}>
+  <span class:list={['ph-label', vertical && 'ph-vertical']}>{label}</span>
+</div>

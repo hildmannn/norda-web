@@ -1,0 +1,6 @@
+---
+// Trazo de marcador lima detrás de una palabra (variant="underline" + lavanda para "¿Hablamos?").
+interface Props { variant?: 'marker' | 'underline'; color?: 'lima' | 'lavanda' }
+const { variant = 'marker', color = 'lima' } = Astro.props;
+---
+<span class:list={['hl', `hl-${variant}`, `hl-${color}`]}><span class="hl-mark" aria-hidden="true"></span><slot /></span>

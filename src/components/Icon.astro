@@ -1,0 +1,15 @@
+---
+// Ícono Lucide 0.460 (trazo 1.75, puntas redondeadas), renderizado como SVG inline en build.
+import { icons } from 'lucide';
+
+interface Props { name: string; size?: number; strokeWidth?: number; class?: string; style?: string }
+const { name, size = 20, strokeWidth = 1.75, class: cls, style } = Astro.props;
+const key = name.split(/[-_ ]/).map((s) => s.charAt(0).toUpperCase() + s.slice(1)).join('');
+const node = (icons as Record<string, any>)[key];
+if (!node) throw new Error(`Icono Lucide desconocido: ${name}`);
+const kids: [string, Record<string, string>][] = node[2];
+const inner = kids
+  .map(([tag, attrs]) => `<${tag} ${Object.entries(attrs).map(([k, v]) => `${k}="${v}"`).join(' ')}/>`)
+  .join('');
+---
+<svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={strokeWidth} stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class:list={['icon', cls]} style={style} set:html={inner} />

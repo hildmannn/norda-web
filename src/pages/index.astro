@@ -1,0 +1,690 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import Button from '../components/Button.astro';
+import Highlight from '../components/Highlight.astro';
+import Wordmark from '../components/Wordmark.astro';
+import Placeholder from '../components/Placeholder.astro';
+import {
+  wa, WA_NUMBER, EMAIL, HORARIO, FECHA_LEGAL, INSTAGRAM, SHOW_PROYECTOS,
+  NAV, WEB_INCLUDES, EXAMPLES, SYSTEMS, NORDI_FEATS, PLANS, STEPS, PROJECTS, TEAM, FAQS, LEGAL,
+} from '../data/site';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const title = 'Norda · Páginas web y sistemas a medida';
+const description = 'Páginas web a medida desde USD 199 y sistemas para comercios, profesionales y pymes. Te explicamos todo fácil y te acompañamos. Escribinos por WhatsApp.';
+const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
+
+const footer = [
+  { title: 'Servicios', links: [['Páginas web', '#webs'], ['Sistemas a medida', '#sistemas'], ['Nordi', '#nordi']] },
+  { title: 'Norda', links: [['Cómo trabajamos', '#proceso'], ['Nosotros', '#nosotros'], ['Proyectos', '#proyectos'], ['Preguntas', '#preguntas']] },
+  { title: 'Contacto', links: [['WhatsApp', WA_CONSULTA], ['Instagram', INSTAGRAM], ['Email', `mailto:${EMAIL}`]] },
+];
+---
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#FAF5F5" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_AR" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={new URL(base, Astro.site)} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <link rel="icon" type="image/png" href={`${base}logo-n.png`} />
+  <link rel="canonical" href={new URL(base, Astro.site)} />
+</head>
+<body>
+<div class="page">
+
+  <!-- ─── Header ─── -->
+  <header class="hdr" id="hdr">
+    <nav class="hdr-nav" aria-label="Principal">
+      <a href="#inicio" class="hdr-logo" aria-label="Norda, volver al inicio"><Wordmark size={24} /></a>
+      <div class="hdr-links">
+        {NAV.map(([label, id]) => (
+          <a href={`#${id}`} class="hdr-link" data-nav={id}>{label}<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M2 6.5C22 3 46 3.5 64 4.8S90 6.5 98 3.6" fill="none" stroke="var(--lima-500)" stroke-width="3.2" stroke-linecap="round" /></svg></a>
+        ))}
+      </div>
+      <div class="hdr-right">
+        <Button size="sm" href="#contacto" class="hdr-cta">Escribinos</Button>
+        <button class="hdr-burger" id="menu-open" aria-label="Abrir menú" aria-expanded="false" aria-controls="mmenu"><Icon name="menu" size={22} /></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="mmenu" id="mmenu" role="dialog" aria-modal="true" aria-label="Menú" hidden>
+    <div class="mmenu-top">
+      <a href="#inicio" data-close-menu aria-label="Norda, volver al inicio" style="display:flex;text-decoration:none"><Wordmark size={24} /></a>
+      <button class="mmenu-close" id="menu-close" aria-label="Cerrar menú"><Icon name="x" size={24} /></button>
+    </div>
+    <div class="mmenu-links">
+      {NAV.map(([label, id]) => <a href={`#${id}`} data-close-menu>{label}<Icon name="arrow-right" size={22} /></a>)}
+    </div>
+    <Button size="lg" full iconLeft="message-circle" href={WA_CONSULTA}>Escribinos por WhatsApp</Button>
+  </div>
+
+  <main>
+  <!-- ─── Hero ─── -->
+  <section id="inicio" class="hero">
+    <div class="blob" aria-hidden="true" style="top:-120px;right:-140px;width:560px;height:480px;background:var(--lavanda-300);opacity:.5"></div>
+    <div class="blob blob-b" aria-hidden="true" style="bottom:-180px;left:-160px;width:520px;height:440px;background:var(--lima-300);opacity:.6"></div>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1>Páginas web y sistemas hechos <Highlight>a la medida</Highlight> de tu negocio.</h1>
+        <p class="hero-lead">Diseñamos tu web y armamos los sistemas que tu negocio necesita. Te lo explicamos en criollo y te acompañamos en todo el camino.</p>
+        <div class="hero-btns">
+          <Button size="lg" iconRight="arrow-right" fullMobile href={wa('Hola Norda! Quiero una página web para mi negocio.')}>Quiero mi web</Button>
+          <Button size="lg" variant="secondary" fullMobile href={wa('Hola Norda! Necesito un sistema a medida para mi negocio.')}>Necesito un sistema</Button>
+        </div>
+        <ul class="trust">
+          <li><Icon name="heart-handshake" size={18} />Atención personalizada</li>
+          <li><Icon name="clock" size={18} />Respuesta en menos de 24 h hábiles</li>
+          <li><Icon name="message-circle" size={18} />Todo explicado sin tecnicismos</li>
+        </ul>
+      </div>
+
+      <div class="hero-art">
+        <div class="hero-art-bg" aria-hidden="true"></div>
+        <div class="hero-note">
+          <span class="hand">esto puede ser tuyo</span>
+          <svg width="52" height="62" viewBox="0 0 56 64" fill="none" aria-hidden="true" style="margin-top:12px"><path d="M8 4c22 2 40 14 38 46" stroke="#1A1A1A" stroke-width="2.2" stroke-linecap="round" /><path d="M36 44l10 9 6-12" stroke="#1A1A1A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </div>
+        <div class="hero-laptop">
+          <div class="laptop-frame"><Placeholder label="CAPTURA WEB" alt="Página web de un comercio local vista en una notebook" /></div>
+          <div class="laptop-base"></div>
+        </div>
+        <div class="hero-phone">
+          <Placeholder label="PANEL SISTEMA" alt="Panel de un sistema de gestión visto en un celular" tone="lima" vertical />
+        </div>
+      </div>
+    </div>
+    <div class="scroll-cue">
+      <a href="#webs" aria-label="Bajar a Páginas web"><Icon name="arrow-down" size={18} /></a>
+    </div>
+  </section>
+
+  <!-- ─── Páginas web ─── -->
+  <section id="webs" class="sec sec-white">
+    <div class="wrap stack" style="gap:clamp(56px,6vw,80px)">
+      <div class="webs-top" data-reveal>
+        <div class="webs-copy">
+          <span class="eyebrow">Páginas web</span>
+          <h2 class="h2">Tu negocio, abierto las <span class="nowrap"><Highlight>24 horas</Highlight>.</span></h2>
+          <p class="lead">Hoy tus clientes te buscan en Google antes de ir a verte. Con una web propia te encuentran más fácil, te consultan en un toque y ven un negocio serio, aunque sea de noche o domingo.</p>
+          <ul class="benefits">
+            {[['search', 'Que te encuentren en Google'], ['message-circle', 'Que te consulten fácil, por WhatsApp'], ['badge-check', 'Que te vean como un negocio profesional']].map(([icon, text]) => (
+              <li><span class="blob-ico" style="width:44px;height:44px;background:var(--lavanda-100)"><Icon name={icon} size={20} /></span>{text}</li>
+            ))}
+          </ul>
+          <div class="forwho">
+            <h3>¿Para quién es?</h3>
+            <div class="chips">
+              {[['store', 'Comercios'], ['utensils', 'Gastronomía'], ['stethoscope', 'Profesionales y consultorios'], ['sprout', 'Emprendimientos']].map(([icon, text]) => (
+                <span class="chip"><Icon name={icon} size={16} />{text}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <article class="price-card">
+          <div class="stack" style="gap:10px">
+            <h3>Web a medida</h3>
+            <div class="price-row">
+              <span style="font-size:18px;font-weight:600" class="muted">Desde</span>
+              <span class="price-big">USD 199</span>
+              <span style="font-size:15px;font-weight:600" class="muted">sin IVA</span>
+            </div>
+          </div>
+          <ul class="incl">
+            {WEB_INCLUDES.map((f) => (
+              <li><span class="check" style="width:24px;height:24px;background:var(--lima-300)"><Icon name="check" size={14} strokeWidth={2.5} /></span>{f}</li>
+            ))}
+          </ul>
+          <p class="note">Dominio y hosting se cotizan aparte. Tienda online, turnos online o funciones especiales: se suman al presupuesto.</p>
+          <Button size="lg" full iconRight="arrow-right" href={wa('Hola Norda! Quiero una página web desde USD 199. ¿Me contás más?')}>Quiero mi web</Button>
+        </article>
+      </div>
+
+      <div class="examples stack" style="gap:24px" data-reveal>
+        <h3>Algunas ideas de lo que podemos hacer</h3>
+        <div class="grid-auto">
+          {EXAMPLES.map((e) => (
+            <article class="ex-card lift">
+              <div class="browser">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <Placeholder label={e.ph} alt={e.alt} />
+              </div>
+              <div class="card-txt">
+                <h4>{e.title}</h4>
+                <p>{e.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Sistemas ─── -->
+  <section id="sistemas" class="band-outer">
+    <div class="band">
+      <div class="blob blob-b" aria-hidden="true" style="bottom:-160px;right:-120px;width:460px;height:420px;background:var(--lavanda-300);opacity:.45"></div>
+      <div class="wrap stack" style="gap:clamp(40px,5vw,56px)">
+        <div class="sec-head" style="max-width:780px" data-reveal>
+          <span class="eyebrow eyebrow-white">Sistemas a medida</span>
+          <h2 class="h2">Si tu negocio funciona distinto, tu sistema <span class="nowrap"><Highlight>también</Highlight>.</span></h2>
+          <p class="lead" style="max-width:580px;color:var(--tinta-800)">Hay cosas que las herramientas genéricas no resuelven. Armamos sistemas pensados para cómo trabajás vos, con los pasos y los nombres que ya usás todos los días.</p>
+        </div>
+        <div class="sys-grid" data-reveal>
+          {SYSTEMS.map((s) => (
+            <article class="sys-card lift">
+              <span class="blob-ico" style="width:52px;height:52px;background:var(--lavanda-200)"><Icon name={s.icon} size={24} /></span>
+              <div class="stack" style="gap:6px">
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="sys-price">
+          <div class="stack" style="gap:8px;max-width:620px">
+            <h3>Precio según tu proyecto</h3>
+            <p>Contanos qué necesitás y te armamos una propuesta clara, sin compromiso.</p>
+          </div>
+          <Button size="lg" iconRight="arrow-right" fullMobile href={wa('Hola Norda! Tengo una idea para un sistema a medida y quiero consultarles.')}>Contame tu idea</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Nordi ─── -->
+  <section id="nordi" class="sec" style="position:relative;overflow:hidden">
+    <div class="blob" aria-hidden="true" style="top:-100px;left:-160px;width:440px;height:400px;background:var(--lima-300);opacity:.45"></div>
+    <div class="wrap stack" style="gap:clamp(48px,6vw,72px)">
+      <div class="nordi-top" data-reveal>
+        <div class="stack" style="gap:22px">
+          <div class="nordi-logo">
+            <span class="nordi-word" aria-label="Nordi">Nord<span class="nordi-i">ı<span class="nordi-dot" aria-hidden="true"></span></span></span>
+            <span style="font-size:14px;font-weight:600" class="muted">by Norda</span>
+          </div>
+          <h2 class="h2">Todo tu negocio en <span class="nowrap"><Highlight>un solo lugar</Highlight>.</span></h2>
+          <p class="lead">Si no necesitás algo a medida, Nordi es el sistema listo para usar. Dejá el cuaderno, las planillas y los mil chats.</p>
+        </div>
+        <div>
+          <div class="laptop-frame"><Placeholder label="CAPTURA NORDI" alt="Pantalla principal de Nordi con ventas del día, stock y clientes" /></div>
+          <div class="laptop-base" style="margin:0 -4%"></div>
+        </div>
+      </div>
+
+      <div class="feat-grid" data-reveal>
+        {NORDI_FEATS.map((n) => (
+          <div class="feat">
+            <span class="blob-ico" style="width:44px;height:44px;background:var(--lima-200)"><Icon name={n.icon} size={20} /></span>
+            <h3>{n.title}</h3>
+            <p>{n.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="stack" style="gap:clamp(32px,4vw,44px)">
+        <div class="plans-head">
+          <h3>Elegí tu plan</h3>
+          <div class="toggle" role="group" aria-label="Frecuencia de pago">
+            <button type="button" class="t-monthly" aria-pressed="true">Mensual</button>
+            <button type="button" class="t-annual" aria-pressed="false">Anual<span class="badge-lima" hidden>2 meses gratis</span></button>
+          </div>
+        </div>
+
+        <div class="plans" id="plans" data-reveal>
+          {PLANS.map((p) => (
+            <article class:list={['plan', p.featured && 'featured']}>
+              {p.featured && <span class="plan-badge">El más elegido</span>}
+              <div class="stack" style="gap:4px">
+                <h4>{p.name}</h4>
+                <span class="plan-users">Hasta {p.users} usuarios</span>
+              </div>
+              <div class="plan-price">
+                <span class="plan-eq only-annual">Equivale a</span>
+                <div class="plan-amount">
+                  <span class="cur">USD</span>
+                  <span class="num"><span class="only-monthly">{p.monthly}</span><span class="only-annual">{p.eq}</span></span>
+                  <span class="per">/mes</span>
+                </div>
+                <span class="plan-sub"><span class="only-monthly">Sin IVA</span><span class="only-annual">USD {p.annual} por año · sin IVA</span></span>
+                <span class="plan-save only-annual">Ahorrás USD {p.save}</span>
+              </div>
+              <Button
+                variant={p.featured ? 'primary' : 'secondary'}
+                size={p.featured ? 'lg' : 'md'}
+                full
+                href={wa(`Hola Norda! Me interesa el plan ${p.name} de Nordi (mensual).`)}
+                data-plan={p.name}
+              >Empezar con {p.name}</Button>
+              <ul class="plan-feats">
+                {p.features.map((f) => (
+                  <li><span class="check" style="width:22px;height:22px;background:var(--lima-200)"><Icon name="check" size={14} strokeWidth={2.5} /></span>{f}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+
+        <div class="plans-foot">
+          <p><Icon name="info" size={18} style="flex:none;margin-top:1px" />Precios en dólares, sin IVA. Se abonan en pesos al tipo de cambio que figura en tu presupuesto.</p>
+          <a href="#sistemas">¿Más de 25 usuarios o algo especial? Mirá nuestros sistemas a medida →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Cómo trabajamos ─── -->
+  <section id="proceso" class="sec sec-white">
+    <div class="wrap stack" style="gap:clamp(40px,5vw,64px)">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Cómo trabajamos</span>
+        <h2 class="h2">Simple, claro y <span class="nowrap"><Highlight>juntos</Highlight>.</span></h2>
+        <p class="lead">Así es trabajar con nosotros, desde la primera charla en adelante.</p>
+      </div>
+      <ol class="steps" data-reveal>
+        <svg class="steps-line-h" aria-hidden="true" viewBox="0 0 1000 20" preserveAspectRatio="none"><path d="M2 10C120 3 230 17 340 10S560 3 670 10 880 17 998 9" fill="none" stroke="var(--lavanda-400)" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 10" /></svg>
+        <span class="steps-line-v" aria-hidden="true"></span>
+        {STEPS.map((s) => (
+          <li class="step">
+            <span class="step-n">{s.n}</span>
+            <div class="step-txt">
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <div>
+        <Button variant="secondary" size="lg" iconRight="arrow-down" fullMobile href="#contacto">Empecemos por el paso 1</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Proyectos (ocultable) ─── -->
+  <section id="proyectos" class="sec" data-proyectos hidden={!SHOW_PROYECTOS}>
+    <div class="wrap stack" style="gap:clamp(40px,5vw,56px)">
+      <div class="sec-head">
+        <span class="eyebrow eyebrow-lav">Proyectos</span>
+        <h2 class="h2">Negocios que ya están <Highlight>creciendo</Highlight></h2>
+      </div>
+      <div class="grid-auto" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))">
+        {PROJECTS.map((p) => (
+          <article class="proj-card">
+            <div class="proj-img"><Placeholder label={p.ph} alt={p.alt} /></div>
+            <div class="card-txt">
+              <span class="proj-rubro">{p.rubro}</span>
+              <h3>{p.name}</h3>
+              <p>{p.result}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Nosotros ─── -->
+  <section id="nosotros" class="sec sec-white" style="position:relative;overflow:hidden">
+    <div class="blob" aria-hidden="true" style="top:10%;left:-180px;width:420px;height:380px;background:var(--lavanda-200);opacity:.6"></div>
+    <div class="wrap stack" style="gap:clamp(40px,5vw,56px)">
+      <div class="sec-head" style="max-width:760px" data-reveal>
+        <span class="eyebrow eyebrow-lav">Nosotros</span>
+        <h2 class="h2">Hablás con <span class="nowrap"><Highlight>personas</Highlight>,</span> no con un call center.</h2>
+        <p class="lead" style="max-width:560px">Somos un equipo chico de Río Cuarto. Cuando nos escribís, te contesta alguien que conoce tu proyecto por su nombre.</p>
+      </div>
+      <div class="grid-auto" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))" data-reveal>
+        {TEAM.map((p) => (
+          <article class="team-card lift">
+            <Placeholder label={p.ph} alt={p.alt} />
+            <div class="team-txt">
+              <div class="stack" style="gap:4px">
+                <h3>{p.name}</h3>
+                <span class="team-role">{p.role}</span>
+              </div>
+              <p class="team-quote">“{p.quote}”</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="values">
+        <span class="values-label">Lo que nos importa:</span>
+        <span class="value"><Icon name="heart-handshake" size={18} />Cercanía</span>
+        <span class="value"><Icon name="lightbulb" size={18} />Claridad</span>
+        <span class="value"><Icon name="handshake" size={18} />Compromiso</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Preguntas ─── -->
+  <section id="preguntas" class="sec">
+    <div class="faq-grid" data-reveal>
+      <div class="faq-head">
+        <span class="eyebrow">Preguntas</span>
+        <h2 class="h2">Lo que más nos <Highlight>preguntan</Highlight></h2>
+        <p class="lead" style="max-width:400px">Precios, tiempos y cómo trabajamos, sin vueltas.</p>
+      </div>
+      <div class="stack" style="gap:clamp(32px,4vw,48px)">
+        <div class="faq-list">
+          {FAQS.map(([q, a], i) => (
+            <div class="faq-item">
+              <h3 style="margin:0">
+                <button class="faq-btn" id={`faq-b${i}`} aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={`faq-p${i}`}>
+                  <span>{q}</span>
+                  <span class="faq-ico"><Icon name="plus" size={20} strokeWidth={2.2} /></span>
+                </button>
+              </h3>
+              <div class="faq-panel" id={`faq-p${i}`} role="region" aria-labelledby={`faq-b${i}`} hidden={i !== 0}>
+                <p>{a}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="faq-more">
+          <span>¿Tenés otra pregunta?</span>
+          <Button iconLeft="message-circle" fullMobile href={wa('Hola Norda! Tengo una consulta.')}>Preguntanos por WhatsApp</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Contacto ─── -->
+  <section id="contacto" class="contact-outer">
+    <div class="band contact-band">
+      <div class="blob" aria-hidden="true" style="top:-140px;right:-120px;width:440px;height:400px;background:var(--lavanda-300);opacity:.45"></div>
+      <div class="contact-grid" data-reveal>
+        <div class="contact-copy">
+          <h2>¿<Highlight variant="underline" color="lavanda">Hablamos</Highlight>?</h2>
+          <p>Contanos qué tenés en mente. Te respondemos en menos de 24 h hábiles.</p>
+          <div class="contact-cta">
+            <span class="hand">es lo más rápido<svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true" style="margin-bottom:-18px"><path d="M30 4C34 18 26 30 10 32" stroke="#1A1A1A" stroke-width="2.2" stroke-linecap="round" /><path d="M16 24l-7 8 9 4" stroke="#1A1A1A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+            <Button size="lg" full iconLeft="message-circle" href={WA_CONSULTA}>Escribinos por WhatsApp</Button>
+          </div>
+          <ul class="contact-info">
+            <li><a href={INSTAGRAM} target="_blank" rel="noopener"><span class="ci-ico"><Icon name="instagram" size={20} /></span><span>@norda.latam</span></a></li>
+            <li><a href={`mailto:${EMAIL}`}><span class="ci-ico"><Icon name="mail" size={20} /></span><span>{EMAIL}</span></a></li>
+            <li class="ci"><span class="ci-ico"><Icon name="clock" size={20} /></span>Atención: {HORARIO}</li>
+          </ul>
+        </div>
+
+        <div class="form-card">
+          <form class="form" id="contact-form" novalidate data-wa={WA_NUMBER}>
+            <div class="stack" style="gap:4px">
+              <h3>Dejanos tus datos</h3>
+              <p style="font-size:15px" class="muted">Armamos el mensaje y lo mandás desde tu WhatsApp.</p>
+            </div>
+            <div class="field" id="field-name">
+              <label for="f-name">Nombre *</label>
+              <input class="input" id="f-name" name="name" placeholder="¿Cómo te llamás?" autocomplete="name" aria-required="true" aria-describedby="f-name-err" />
+              <span class="field-err" id="f-name-err"><Icon name="circle-alert" size={14} strokeWidth={2} />Contanos cómo te llamás</span>
+            </div>
+            <div class="field">
+              <label for="f-biz">Nombre del negocio</label>
+              <input class="input" id="f-biz" name="biz" placeholder="Por ejemplo, Panadería La Espiga" autocomplete="organization" />
+            </div>
+            <div class="field">
+              <label for="f-need">¿Qué necesitás?</label>
+              <div class="select-wrap">
+                <select class="input" id="f-need" name="need">
+                  <option value="Página web">Página web</option>
+                  <option value="Sistema a medida">Sistema a medida</option>
+                  <option value="Nordi">Nordi</option>
+                  <option value="Otra cosa">Otra cosa</option>
+                </select>
+                <Icon name="chevron-down" size={20} />
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-msg">Contanos un poco más</label>
+              <textarea class="input" id="f-msg" name="msg" rows="4" placeholder="Qué hace tu negocio y qué te gustaría resolver"></textarea>
+            </div>
+            <Button type="submit" size="lg" full iconRight="arrow-up-right">Enviar por WhatsApp</Button>
+            <p class="form-note">* Campo obligatorio. Se abre WhatsApp en una pestaña nueva.</p>
+          </form>
+
+          <div class="sent" id="form-sent" role="status" hidden>
+            <span class="blob-ico" style="width:64px;height:64px;background:var(--lima-300)"><Icon name="check" size={30} strokeWidth={2.4} /></span>
+            <h3>¡Listo! Te abrimos WhatsApp para que nos mandes el mensaje</h3>
+            <p>Si no se abrió, tocá el botón y escribinos directo.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:10px">
+              <Button iconLeft="message-circle" href={WA_CONSULTA} id="sent-open">Abrir WhatsApp</Button>
+              <Button variant="secondary" id="sent-reset">Escribir otro mensaje</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
+    <div class="wrap stack" style="gap:clamp(40px,5vw,64px)">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="#inicio" aria-label="Norda, volver al inicio" style="display:flex;text-decoration:none"><Wordmark size={32} tone="oscuro" /></a>
+          <p>Webs y sistemas a medida, con atención de verdad.</p>
+        </div>
+        {footer.map((c, i) => (
+          <div class="foot-col">
+            <button class="foot-toggle" aria-expanded="false" aria-controls={`foot-${i}`}>{c.title}<span><Icon name="plus" size={20} /></span></button>
+            <h3>{c.title}</h3>
+            <ul id={`foot-${i}`}>
+              {c.links.map(([label, href]) => {
+                const ext = href.startsWith('http');
+                return (
+                  <li data-proyectos={href === '#proyectos' ? '' : undefined} hidden={href === '#proyectos' && !SHOW_PROYECTOS}>
+                    <a href={href} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>{label}</a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div class="foot-bottom">
+        <div class="foot-legal">
+          <span>© 2026 Norda · Río Cuarto, Córdoba, Argentina</span>
+          <button type="button" data-legal="terminos">Términos y condiciones</button>
+          <button type="button" data-legal="privacidad">Política de privacidad</button>
+        </div>
+        <a href="#inicio" class="to-top">Volver arriba<svg width="18" height="22" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M9 20C7 14 8 8 9.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M4 7.5 9.5 2l4.5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── Modales legales ─── -->
+  {Object.entries(LEGAL).map(([key, doc]) => (
+    <div class="modal" id={`modal-${key}`} hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby={`legal-${key}`}>
+        <div class="modal-top">
+          <div class="stack" style="gap:10px">
+            <span class="draft">BORRADOR · REVISAR</span>
+            <h2 id={`legal-${key}`}>{doc.title}</h2>
+          </div>
+          <button class="icon-btn" data-modal-close aria-label="Cerrar"><Icon name="x" size={20} /></button>
+        </div>
+        {doc.paras.map((t) => <p>{t}</p>)}
+        <p class="modal-date">Última actualización: {FECHA_LEGAL}</p>
+      </div>
+    </div>
+  ))}
+
+  <!-- ─── Botón flotante WhatsApp ─── -->
+  <div class="fab" id="fab">
+    <a href={wa('Hola Norda! Vengo de la web y quiero consultar.')} target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp" aria-describedby="fab-tip"><Icon name="message-circle" size={28} /></a>
+    <span class="fab-tip" role="tooltip" id="fab-tip">¿Hablamos?</span>
+  </div>
+</div>
+
+<script>
+  const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => r.querySelector(s) as T;
+  const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => Array.from(r.querySelectorAll(s)) as T[];
+
+  // ── Proyectos: se prende con ?proyectos=1
+  if (new URLSearchParams(location.search).get('proyectos') === '1') {
+    $$('[data-proyectos]').forEach((el) => (el.hidden = false));
+  }
+
+  // ── Header compacto, link activo y botón flotante
+  const hdr = $('#hdr');
+  const fab = $('#fab');
+  const navLinks = $$('[data-nav]');
+  const mmenu = $('#mmenu');
+  const onScroll = () => {
+    const y = window.scrollY, vh = window.innerHeight;
+    hdr.classList.toggle('scrolled', y > 24);
+    let active = '';
+    ['webs', 'sistemas', 'nordi', 'proceso', 'nosotros', 'preguntas'].forEach((id) => {
+      const r = document.getElementById(id)!.getBoundingClientRect();
+      if (r.top < vh * 0.4 && r.bottom > 100) active = id;
+    });
+    navLinks.forEach((a) => {
+      if (a.dataset.nav === active) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+    const pastHero = document.getElementById('webs')!.getBoundingClientRect().top < vh * 0.6;
+    const ctVis = document.getElementById('contacto')!.getBoundingClientRect().top < vh * 0.75;
+    fab.classList.toggle('show', pastHero && !ctVis && mmenu.hidden);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // ── Menú mobile
+  const burger = $('#menu-open');
+  const setMenu = (open: boolean) => {
+    mmenu.hidden = !open;
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) $<HTMLButtonElement>('#menu-close').focus();
+    onScroll();
+  };
+  burger.addEventListener('click', () => setMenu(true));
+  $('#menu-close').addEventListener('click', () => setMenu(false));
+  $$('[data-close-menu]', mmenu).forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  window.addEventListener('resize', () => { if (window.innerWidth >= 1080 && !mmenu.hidden) setMenu(false); });
+
+  // ── Toggle mensual / anual de Nordi
+  const plans = $('#plans');
+  const tMonthly = $('.t-monthly'), tAnnual = $('.t-annual');
+  const setAnnual = (annual: boolean) => {
+    plans.classList.toggle('is-annual', annual);
+    tMonthly.setAttribute('aria-pressed', String(!annual));
+    tAnnual.setAttribute('aria-pressed', String(annual));
+    $('.badge-lima', tAnnual).hidden = !annual;
+    const wa = $<HTMLFormElement>('#contact-form').dataset.wa;
+    $$<HTMLAnchorElement>('[data-plan]').forEach((a) => {
+      const msg = `Hola Norda! Me interesa el plan ${a.dataset.plan} de Nordi (${annual ? 'anual' : 'mensual'}).`;
+      a.href = `https://wa.me/${wa}?text=${encodeURIComponent(msg)}`;
+    });
+  };
+  tMonthly.addEventListener('click', () => setAnnual(false));
+  tAnnual.addEventListener('click', () => setAnnual(true));
+
+  // ── FAQ: una abierta a la vez
+  const faqBtns = $$<HTMLButtonElement>('.faq-btn');
+  faqBtns.forEach((btn) => btn.addEventListener('click', () => {
+    const willOpen = btn.getAttribute('aria-expanded') !== 'true';
+    faqBtns.forEach((b) => {
+      const open = b === btn && willOpen;
+      b.setAttribute('aria-expanded', String(open));
+      document.getElementById(b.getAttribute('aria-controls')!)!.hidden = !open;
+    });
+  }));
+
+  // ── Footer: acordeón en mobile (uno a la vez)
+  const footBtns = $$<HTMLButtonElement>('.foot-toggle');
+  footBtns.forEach((btn) => btn.addEventListener('click', () => {
+    const willOpen = btn.getAttribute('aria-expanded') !== 'true';
+    footBtns.forEach((b) => {
+      const open = b === btn && willOpen;
+      b.setAttribute('aria-expanded', String(open));
+      b.parentElement!.classList.toggle('open', open);
+    });
+  }));
+
+  // ── Modales legales
+  let lastFocus: HTMLElement | null = null;
+  const closeModals = () => {
+    $$('.modal').forEach((m) => (m.hidden = true));
+    document.body.style.overflow = '';
+    lastFocus?.focus();
+  };
+  $$('[data-legal]').forEach((b) => b.addEventListener('click', () => {
+    lastFocus = b;
+    const m = document.getElementById('modal-' + b.dataset.legal)!;
+    m.hidden = false;
+    document.body.style.overflow = 'hidden';
+    $<HTMLButtonElement>('[data-modal-close]', m).focus();
+  }));
+  $$('.modal').forEach((m) => m.addEventListener('click', (e) => {
+    if (e.target === m || (e.target as Element).closest('[data-modal-close]')) closeModals();
+  }));
+  window.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if ($$('.modal').some((m) => !m.hidden)) closeModals();
+    if (!mmenu.hidden) setMenu(false);
+  });
+
+  // ── Formulario → WhatsApp
+  const form = $<HTMLFormElement>('#contact-form');
+  const sent = $('#form-sent');
+  const fName = $<HTMLInputElement>('#f-name');
+  const fieldName = $('#field-name');
+  const waMsg = () => {
+    const name = fName.value.trim();
+    const biz = $<HTMLInputElement>('#f-biz').value.trim();
+    const need = $<HTMLSelectElement>('#f-need').value;
+    const msg = $<HTMLTextAreaElement>('#f-msg').value.trim();
+    let t = `Hola Norda! Soy ${name}`;
+    if (biz) t += ` de ${biz}`;
+    t += `. Necesito: ${need}.`;
+    if (msg) t += ` ${msg}`;
+    return `https://wa.me/${form.dataset.wa}?text=${encodeURIComponent(t)}`;
+  };
+  const setError = (on: boolean) => {
+    fieldName.classList.toggle('has-error', on);
+    fName.setAttribute('aria-invalid', String(on));
+  };
+  fName.addEventListener('input', () => { if (fName.value.trim()) setError(false); });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!fName.value.trim()) { setError(true); fName.focus(); return; }
+    const url = waMsg();
+    window.open(url, '_blank', 'noopener');
+    $<HTMLAnchorElement>('#sent-open').href = url;
+    form.hidden = true;
+    sent.hidden = false;
+  });
+  $('#sent-reset').addEventListener('click', () => {
+    form.reset();
+    setError(false);
+    sent.hidden = true;
+    form.hidden = false;
+    fName.focus();
+  });
+
+  // ── Animación de entrada (lo que ya está en pantalla no se anima)
+  if (!location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); }
+    }), { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    $$('[data-reveal]').forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight) return;
+      el.classList.add('reveal-armed');
+      io.observe(el);
+    });
+  }
+</script>
+</body>
+</html>

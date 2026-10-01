@@ -1,0 +1,29 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit';
+  iconLeft?: string;
+  iconRight?: string;
+  full?: boolean;
+  fullMobile?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+const { variant = 'primary', size = 'md', href, type = 'button', iconLeft, iconRight, full, fullMobile, class: cls, ...rest } = Astro.props;
+const ICON = { sm: 16, md: 18, lg: 20 }[size];
+const ext = href?.startsWith('http');
+const classes = ['btn', `btn-${variant}`, `btn-${size}`, full && 'btn-full', fullMobile && 'btn-full-m', cls];
+---
+{href ? (
+  <a href={href} class:list={classes} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined} {...rest}>
+    {iconLeft && <Icon name={iconLeft} size={ICON} />}<slot />{iconRight && <Icon name={iconRight} size={ICON} class="btn-ico-r" />}
+  </a>
+) : (
+  <button type={type} class:list={classes} {...rest}>
+    {iconLeft && <Icon name={iconLeft} size={ICON} />}<slot />{iconRight && <Icon name={iconRight} size={ICON} class="btn-ico-r" />}
+  </button>
+)}

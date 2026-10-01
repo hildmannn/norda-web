@@ -1,0 +1,9 @@
+---
+import logo from '../assets/logo-norda.png';
+
+interface Props { size?: number; tone?: 'claro' | 'oscuro' }
+const { size = 28, tone = 'claro' } = Astro.props;
+const h = Math.round(size * 0.8);
+const w = Math.round(h * 3.68);
+---
+<span role="img" aria-label="Norda" class="wordmark" style={`width:${w}px;height:${h}px;background:${tone === 'oscuro' ? 'var(--crema-50)' : 'var(--tinta-900)'};--logo:url(${logo.src})`}></span>
