@@ -1,0 +1,214 @@
+---
+// Estructura común de todas las páginas: head, header, menú mobile, footer y modales legales.
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import Button from '../components/Button.astro';
+import Wordmark from '../components/Wordmark.astro';
+import { wa, EMAIL, FECHA_LEGAL, INSTAGRAM, SHOW_PROYECTOS, BASE, NAV, PRODUCTS, LEGAL } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Ruta relativa a BASE (sin barra inicial): '' para la home, '<slug>/' para una página de producto. */
+  path?: string;
+  /** slug del producto activo, para marcar su tab. */
+  current?: string;
+}
+const { title, description, path = '', current } = Astro.props;
+const home = path === '';
+const url = new URL(BASE + path, Astro.site);
+const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
+
+// En la home los anclas son '#id' (scroll suave); en las otras páginas apuntan a la home.
+const sec = (id: string) => (home ? `#${id}` : `${BASE}#${id}`);
+const prod = (slug: string) => `${BASE}${slug}/`;
+
+const footer = [
+  { title: 'Servicios', links: [['Páginas web', sec('webs')], ['Sistemas a medida', sec('sistemas')]] },
+  { title: 'Norda', links: [['Cómo trabajamos', sec('proceso')], ['Nosotros', sec('nosotros')], ['Proyectos', sec('proyectos')], ['Preguntas', sec('preguntas')]] },
+  { title: 'Contacto', links: [['WhatsApp', WA_CONSULTA], ['Instagram', INSTAGRAM], ['Email', `mailto:${EMAIL}`]] },
+];
+const underline = '<path pathLength="1" d="M2 6.5C22 3 46 3.5 64 4.8S90 6.5 98 3.6" fill="none" stroke="var(--lima-500)" stroke-width="3.2" stroke-linecap="round" />';
+---
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#FAF5F5" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_AR" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={url} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <link rel="icon" type="image/png" href={`${BASE}logo-n.png`} />
+  <link rel="canonical" href={url} />
+</head>
+<body>
+<div class="page">
+
+  <!-- ─── Header ─── -->
+  <header class="hdr" id="hdr">
+    <nav class="hdr-nav" aria-label="Principal">
+      <a href={home ? '#inicio' : BASE} class="hdr-logo" aria-label="Norda, volver al inicio"><Wordmark size={24} /></a>
+      <div class="hdr-links">
+        {NAV.map(([label, id]) => (
+          <a href={sec(id)} class="hdr-link" data-nav={id}>{label}<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none" set:html={underline} /></a>
+        ))}
+        <span class="hdr-sep" aria-hidden="true"></span>
+        {PRODUCTS.map((p) => (
+          <a href={prod(p.slug)} class="hdr-link hdr-prod" aria-current={current === p.slug ? 'page' : undefined}>
+            <span class="hdr-prod-name">{p.name}<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none" set:html={underline} /></span>
+            <span class="pill-pronto">Pronto</span>
+          </a>
+        ))}
+      </div>
+      <div class="hdr-right">
+        <Button size="sm" href={sec('contacto')} class="hdr-cta">Escribinos</Button>
+        <button class="hdr-burger" id="menu-open" aria-label="Abrir menú" aria-expanded="false" aria-controls="mmenu"><Icon name="menu" size={22} /></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="mmenu" id="mmenu" role="dialog" aria-modal="true" aria-label="Menú" hidden>
+    <div class="mmenu-top">
+      <a href={home ? '#inicio' : BASE} data-close-menu aria-label="Norda, volver al inicio" style="display:flex;text-decoration:none"><Wordmark size={24} /></a>
+      <button class="mmenu-close" id="menu-close" aria-label="Cerrar menú"><Icon name="x" size={24} /></button>
+    </div>
+    <div class="mmenu-links">
+      {NAV.map(([label, id]) => <a href={sec(id)} data-close-menu>{label}<Icon name="arrow-right" size={22} /></a>)}
+      {PRODUCTS.map((p) => (
+        <a href={prod(p.slug)} data-close-menu aria-current={current === p.slug ? 'page' : undefined}>
+          <span class="mmenu-prod">{p.name}<span class="pill-pronto">Pronto</span></span><Icon name="arrow-right" size={22} />
+        </a>
+      ))}
+    </div>
+    <Button size="lg" full iconLeft="message-circle" href={WA_CONSULTA}>Escribinos por WhatsApp</Button>
+  </div>
+
+  <main>
+    <slot />
+  </main>
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
+    <div class="wrap stack" style="gap:clamp(40px,5vw,64px)">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href={home ? '#inicio' : BASE} aria-label="Norda, volver al inicio" style="display:flex;text-decoration:none"><Wordmark size={32} tone="oscuro" /></a>
+          <p>Webs y sistemas a medida, con atención de verdad.</p>
+        </div>
+        {footer.map((c, i) => (
+          <div class="foot-col">
+            <button class="foot-toggle" aria-expanded="false" aria-controls={`foot-${i}`}>{c.title}<span><Icon name="plus" size={20} /></span></button>
+            <h3>{c.title}</h3>
+            <ul id={`foot-${i}`}>
+              {c.links.map(([label, href]) => {
+                const ext = href.startsWith('http');
+                const proy = href.endsWith('#proyectos');
+                return (
+                  <li data-proyectos={proy ? '' : undefined} hidden={proy && !SHOW_PROYECTOS}>
+                    <a href={href} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>{label}</a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div class="foot-bottom">
+        <div class="foot-legal">
+          <span>© 2026 Norda · Río Cuarto, Córdoba, Argentina</span>
+          <button type="button" data-legal="terminos">Términos y condiciones</button>
+          <button type="button" data-legal="privacidad">Política de privacidad</button>
+        </div>
+        <a href={home ? '#inicio' : '#top'} class="to-top">Volver arriba<svg width="18" height="22" viewBox="0 0 18 22" fill="none" aria-hidden="true"><path d="M9 20C7 14 8 8 9.5 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" /><path d="M4 7.5 9.5 2l4.5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── Modales legales ─── -->
+  {Object.entries(LEGAL).map(([key, doc]) => (
+    <div class="modal" id={`modal-${key}`} hidden>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby={`legal-${key}`}>
+        <div class="modal-top">
+          <div class="stack" style="gap:10px">
+            <span class="draft">BORRADOR · REVISAR</span>
+            <h2 id={`legal-${key}`}>{doc.title}</h2>
+          </div>
+          <button class="icon-btn" data-modal-close aria-label="Cerrar"><Icon name="x" size={20} /></button>
+        </div>
+        {doc.paras.map((t) => <p>{t}</p>)}
+        <p class="modal-date">Última actualización: {FECHA_LEGAL}</p>
+      </div>
+    </div>
+  ))}
+
+  <slot name="after" />
+</div>
+
+<script>
+  const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => r.querySelector(s) as T;
+  const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => Array.from(r.querySelectorAll(s)) as T[];
+
+  // ── Header compacto al scrollear
+  const hdr = $('#hdr');
+  const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 24);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ── Menú mobile
+  const mmenu = $('#mmenu');
+  const burger = $('#menu-open');
+  const setMenu = (open: boolean) => {
+    mmenu.hidden = !open;
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) $<HTMLButtonElement>('#menu-close').focus();
+  };
+  burger.addEventListener('click', () => setMenu(true));
+  $('#menu-close').addEventListener('click', () => setMenu(false));
+  $$('[data-close-menu]', mmenu).forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  window.addEventListener('resize', () => { if (window.innerWidth >= 1200 && !mmenu.hidden) setMenu(false); });
+
+  // ── Footer: acordeón en mobile (uno a la vez)
+  const footBtns = $$<HTMLButtonElement>('.foot-toggle');
+  footBtns.forEach((btn) => btn.addEventListener('click', () => {
+    const willOpen = btn.getAttribute('aria-expanded') !== 'true';
+    footBtns.forEach((b) => {
+      const open = b === btn && willOpen;
+      b.setAttribute('aria-expanded', String(open));
+      b.parentElement!.classList.toggle('open', open);
+    });
+  }));
+
+  // ── Modales legales
+  let lastFocus: HTMLElement | null = null;
+  const closeModals = () => {
+    $$('.modal').forEach((m) => (m.hidden = true));
+    document.body.style.overflow = '';
+    lastFocus?.focus();
+  };
+  $$('[data-legal]').forEach((b) => b.addEventListener('click', () => {
+    lastFocus = b;
+    const m = document.getElementById('modal-' + b.dataset.legal)!;
+    m.hidden = false;
+    document.body.style.overflow = 'hidden';
+    $<HTMLButtonElement>('[data-modal-close]', m).focus();
+  }));
+  $$('.modal').forEach((m) => m.addEventListener('click', (e) => {
+    if (e.target === m || (e.target as Element).closest('[data-modal-close]')) closeModals();
+  }));
+  window.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if ($$('.modal').some((m) => !m.hidden)) closeModals();
+    if (!mmenu.hidden) setMenu(false);
+  });
+</script>
+</body>
+</html>

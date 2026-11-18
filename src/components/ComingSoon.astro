@@ -1,0 +1,50 @@
+---
+// Página "Próximamente" de un producto (Nordi, Agendi). Los textos salen de PRODUCTS en src/data/site.ts.
+// Imagen: public/img/<slug>-preview.png. Si no existe, queda el recuadro con degradado lima → lavanda.
+import Layout from '../layouts/Layout.astro';
+import Icon from './Icon.astro';
+import Button from './Button.astro';
+import Highlight from './Highlight.astro';
+import { wa, BASE, PRODUCTS } from '../data/site';
+
+interface Props { slug: (typeof PRODUCTS)[number]['slug'] }
+const product = PRODUCTS.find((p) => p.slug === Astro.props.slug)!;
+const { slug, name, tagline } = product;
+---
+<Layout title={`${name} · Próximamente | Norda`} description={tagline} path={`${slug}/`} current={slug}>
+  <section class="soon">
+    <div class="blob" aria-hidden="true" style="top:-120px;right:-140px;width:560px;height:480px;background:var(--lavanda-300);opacity:.45"></div>
+    <div class="blob blob-b" aria-hidden="true" style="bottom:-180px;left:-160px;width:520px;height:440px;background:var(--lima-300);opacity:.55"></div>
+
+    <div class="soon-grid">
+      <div class="soon-copy">
+        <div class="soon-by">
+          <h1>{name}</h1>
+          <span>by Norda</span>
+        </div>
+        <p class="soon-tagline">{tagline}</p>
+        <p class="soon-big"><Highlight>Próximamente</Highlight></p>
+        <div class="soon-notify">
+          <p>¿Querés enterarte cuando salga?</p>
+          <Button iconLeft="message-circle" href={wa(`Hola Norda! Quiero enterarme cuando salga ${name}.`)}>Escribinos</Button>
+        </div>
+        <a href={BASE} class="soon-back"><Icon name="arrow-left" size={18} />Volver al inicio</a>
+      </div>
+
+      <div class="soon-art">
+        <div class="soon-art-bg" aria-hidden="true"></div>
+        <div class="soon-frame">
+          <div class="soon-shot">
+            <img
+              src={`${BASE}img/${slug}-preview.png`}
+              alt={`Vista previa de ${name}`}
+              width="1600" height="1000"
+              loading="eager"
+              onerror="this.remove()"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

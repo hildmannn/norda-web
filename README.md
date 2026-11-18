@@ -1,6 +1,8 @@
 # Norda · sitio web
 
-Landing one-page de **Norda** (Río Cuarto, Córdoba): páginas web a medida, sistemas a medida y Nordi.
+Landing one-page de **Norda** (Río Cuarto, Córdoba): páginas web a medida y sistemas a medida.
+Nordi y Agendi figuran solo como tabs "Pronto" con su página de Próximamente (`/nordi`, `/agendi`).
+La versión anterior, con la sección completa de Nordi y sus planes, quedó en la rama `backup/con-nordi` y en la carpeta `backup-con-nordi/`.
 Hecha con [Astro](https://astro.build) (sitio estático) a partir del diseño de Claude Design.
 
 ## Desarrollo
@@ -18,7 +20,10 @@ Cada push a `main` se publica solo en GitHub Pages (`.github/workflows/deploy.ym
 - **`src/data/site.ts`**: número de WhatsApp, email, horario, fecha legal, textos de FAQ, planes, equipo, etc.
   Los placeholders `549XXXXXXXXXX`, `[EMAIL]`, `[HORARIO]` y `[FECHA]` se reemplazan ahí y se actualiza todo el sitio.
 - `SHOW_PROYECTOS` (en el mismo archivo) prende la sección Proyectos. También se puede ver con `?proyectos=1`.
-- **`src/pages/index.astro`**: el markup de la página y el JS de interacción.
+- **`src/layouts/Layout.astro`**: head, header, menú mobile, footer y modales legales (compartidos por todas las páginas).
+- **`src/pages/index.astro`**: el markup de la home y su JS de interacción.
+- **`src/pages/nordi.astro`**, **`src/pages/agendi.astro`**: páginas de Próximamente (usan `src/components/ComingSoon.astro`).
+  Las imágenes van en `public/img/nordi-preview.png` y `public/img/agendi-preview.png`; si no están, se ve un recuadro con degradado.
 - **`src/styles/global.css`**: tokens del design system y estilos.
 - Imágenes: hoy son placeholders rayados (componente `Placeholder`). Reemplazar por fotos reales.
 

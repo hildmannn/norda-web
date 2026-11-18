@@ -10,13 +10,21 @@ export const SHOW_PROYECTOS = false;
 
 export const wa = (msg: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 
+// Raíz del sitio (con barra final): '/norda-web/' en GitHub Pages, '/' con dominio propio.
+export const BASE = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+
 export const NAV = [
   ['Webs', 'webs'],
   ['Sistemas', 'sistemas'],
-  ['Nordi', 'nordi'],
   ['Cómo trabajamos', 'proceso'],
   ['Nosotros', 'nosotros'],
   ['Preguntas', 'preguntas'],
+] as const;
+
+// Productos en desarrollo: tabs del navbar con etiqueta "Pronto" y página /<slug> de Próximamente.
+export const PRODUCTS = [
+  { slug: 'nordi', name: 'Nordi', tagline: 'Un sistema de gestión simple para tu negocio.' },
+  { slug: 'agendi', name: 'Agendi', tagline: 'Tu turnero online: tus clientes reservan solos, vos te olvidás de la agenda.' },
 ] as const;
 
 export const WEB_INCLUDES = [
@@ -43,25 +51,6 @@ export const SYSTEMS = [
   { icon: 'wallet', title: 'Cuentas corrientes y cobranzas', desc: 'Quién te debe, cuánto y desde cuándo, sin cuadernos.' },
   { icon: 'chart-column', title: 'Paneles para ver tus números', desc: 'Ventas, gastos y ganancias claros, de un vistazo.' },
   { icon: 'plug', title: 'Conectar con lo que ya usás', desc: 'Planillas, WhatsApp y Mercado Pago, todo conectado.' },
-];
-
-export const NORDI_FEATS = [
-  { icon: 'receipt', title: 'Ventas y caja', desc: 'Cobrá rápido y cerrá la caja sin cuentas a mano.' },
-  { icon: 'package', title: 'Productos y stock', desc: 'Precios y cantidades siempre al día.' },
-  { icon: 'users', title: 'Clientes y cuentas corrientes', desc: 'Quién te compra, cuánto y qué te debe.' },
-  { icon: 'truck', title: 'Proveedores y compras', desc: 'Pedidos, facturas y pagos ordenados.' },
-  { icon: 'calendar', title: 'Agenda y turnos', desc: 'Tus turnos y los de tu equipo en un lugar.' },
-  { icon: 'chart-pie', title: 'Reportes claros', desc: 'Cómo te fue en el mes, sin armar planillas.' },
-  { icon: 'shield-check', title: 'Usuarios y permisos', desc: 'Cada uno ve solo lo que tiene que ver.' },
-  { icon: 'cloud', title: 'Desde cualquier lugar', desc: 'Compu y celular, en la nube, con copias de seguridad.' },
-];
-
-const BASE_FEATS = ['Todas las funciones de Nordi', 'Soporte por WhatsApp', 'Actualizaciones', 'Copias de seguridad'];
-
-export const PLANS = [
-  { name: 'Negocio', users: 3, monthly: '49', annual: '490', eq: '40,83', save: '98', featured: false, features: BASE_FEATS },
-  { name: 'Pyme', users: 10, monthly: '99', annual: '990', eq: '82,50', save: '198', featured: true, features: BASE_FEATS },
-  { name: 'Empresa', users: 25, monthly: '179', annual: '1.790', eq: '149,17', save: '358', featured: false, features: [...BASE_FEATS, 'Soporte prioritario', 'Capacitación para tu equipo'] },
 ];
 
 export const STEPS = [
@@ -93,8 +82,6 @@ export const FAQS: [string, string][] = [
   ['¿Cuánto cuesta un sistema a medida?', 'Depende de lo que necesites resolver. Nos contás cómo trabaja tu negocio y te armamos una propuesta clara, sin compromiso.'],
   ['¿Por qué los precios están en dólares?', 'Para que el precio se mantenga estable mientras trabajamos. Lo pagás en pesos, al tipo de cambio que figura en tu presupuesto.'],
   ['¿Los precios incluyen IVA?', 'No, todos los precios que ves en la web son sin IVA.'],
-  ['¿Qué diferencia hay entre Nordi y un sistema a medida?', 'Nordi es un sistema listo para usar: lo empezás a usar enseguida y se paga por mes. Un sistema a medida lo hacemos desde cero, pensado para cómo funciona tu negocio.'],
-  ['¿Puedo cancelar Nordi cuando quiera?', 'Sí. El plan mensual no tiene permanencia: lo das de baja cuando quieras.'],
   ['¿Tengo que saber de computación?', 'Para nada. Te explicamos todo paso a paso, con palabras simples, y seguimos a mano para lo que necesites.'],
   ['¿Trabajan con negocios de otras ciudades?', 'Sí. Charlamos por videollamada y WhatsApp, y te acompañamos igual de cerca que si estuvieras a la vuelta.'],
 ];
@@ -103,11 +90,10 @@ export const LEGAL = {
   terminos: {
     title: 'Términos y condiciones',
     paras: [
-      'Estos términos regulan el uso de este sitio y la contratación de los servicios de Norda (páginas web, sistemas a medida y Nordi).',
+      'Estos términos regulan el uso de este sitio y la contratación de los servicios de Norda (páginas web y sistemas a medida).',
       'Cada trabajo a medida se define en una propuesta escrita con alcance, precio y plazos. Lo que no figura en la propuesta se cotiza aparte.',
       'Los precios están expresados en dólares estadounidenses, sin IVA, y se abonan en pesos al tipo de cambio indicado en el presupuesto.',
       'Dominio y hosting se contratan aparte. Norda puede ayudarte a gestionarlos, pero su titularidad es tuya.',
-      'Nordi se contrata por suscripción mensual o anual. El plan mensual no tiene permanencia y se puede dar de baja en cualquier momento.',
       `Para cualquier duda sobre estos términos, escribinos a ${EMAIL}.`,
     ],
   },
@@ -117,7 +103,6 @@ export const LEGAL = {
       'En Norda cuidamos los datos que nos compartís. Esta política explica qué datos recolectamos y para qué los usamos.',
       'Solo usamos los datos que nos mandás por WhatsApp, email o formulario (nombre, negocio y consulta) para responderte y armar tu propuesta.',
       'No vendemos ni compartimos tus datos con terceros, salvo los proveedores necesarios para prestar el servicio.',
-      'Los datos que cargás en Nordi son tuyos. Se guardan en la nube con copias de seguridad y podés pedir que los exportemos o los borremos.',
       `Podés pedir acceso, corrección o eliminación de tus datos cuando quieras, escribiendo a ${EMAIL}, según la Ley 25.326 de Protección de Datos Personales.`,
     ],
   },
