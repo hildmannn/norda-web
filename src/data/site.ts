@@ -1,6 +1,6 @@
 // ─── Datos de contacto: reemplazar los placeholders acá y se actualiza todo el sitio ───
 export const WA_NUMBER = '549XXXXXXXXXX';
-export const EMAIL = '[EMAIL]';
+export const EMAIL = 'nordalatam@gmail.com';
 export const HORARIO = 'lunes a viernes de 7:30 a 13:30 y de 16 a 21 h';
 export const FECHA_LEGAL = '[FECHA]';
 export const INSTAGRAM = 'https://instagram.com/norda.latam';
@@ -47,8 +47,8 @@ export const COMBO_INCLUDES = [
 
 export const EXAMPLES = [
   { ph: 'EJEMPLO WEB 2', href: 'https://hildmannn.github.io/mile-ramello/', shot: 'img/ejemplo-mile-ramello.webp', title: 'Web para un profesional', desc: 'Tus servicios, tu experiencia y turnos que se piden por WhatsApp.', alt: 'Página web de una nutricionista, recorrida de arriba a abajo' },
-  { ph: 'EJEMPLO WEB 1', title: 'Web para un local', desc: 'Horarios, ubicación, fotos del lugar y un botón para que te escriban.', alt: 'Ejemplo de página web para un local a la calle' },
   { ph: 'EJEMPLO WEB 3', href: 'https://maquinassanmartino.com/', shot: 'img/ejemplo-sanmartino-catalogo.webp', title: 'Catálogo online', desc: 'Uno de los pasos más importantes para hacer crecer tu negocio: tener tu catálogo actualizado y al alcance de todos.', alt: 'Catálogo online de máquinas para gimnasio, recorrido de arriba a abajo' },
+  { ph: 'EJEMPLO WEB 1', title: 'Web para un local', desc: 'Horarios, ubicación, fotos del lugar y un botón para que te escriban.', alt: 'Ejemplo de página web para un local a la calle' },
 ];
 
 export const SYSTEMS = [
