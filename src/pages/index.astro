@@ -148,7 +148,7 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
               <div class="browser">
                 <div class="browser-dots"><span></span><span></span><span></span></div>
                 {'shot' in e && e.shot
-                  ? <div class="shot"><img src={BASE + e.shot} alt={e.alt} loading="lazy" decoding="async" width="900" height="2626" /></div>
+                  ? <div class="shot"><img src={BASE + e.shot} alt={e.alt} loading="lazy" decoding="async" /></div>
                   : <Placeholder label={e.ph} alt={e.alt} />}
               </div>
               <div class="card-txt">

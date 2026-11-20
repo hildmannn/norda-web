@@ -48,7 +48,7 @@ export const COMBO_INCLUDES = [
 export const EXAMPLES = [
   { ph: 'EJEMPLO WEB 1', title: 'Web para un local', desc: 'Horarios, ubicación, fotos del lugar y un botón para que te escriban.', alt: 'Ejemplo de página web para un local a la calle' },
   { ph: 'EJEMPLO WEB 2', shot: 'img/ejemplo-mile-ramello.webp', title: 'Web para un profesional', desc: 'Tus servicios, tu experiencia y turnos que se piden por WhatsApp.', alt: 'Página web de una nutricionista, recorrida de arriba a abajo' },
-  { ph: 'EJEMPLO WEB 3', title: 'Catálogo online', desc: 'Tus productos con foto y precio, para que te pidan sin vueltas.', alt: 'Ejemplo de catálogo online de productos' },
+  { ph: 'EJEMPLO WEB 3', shot: 'img/ejemplo-sanmartino-catalogo.webp', title: 'Catálogo online', desc: 'Uno de los pasos más importantes para hacer crecer tu negocio: tener tu catálogo actualizado y al alcance de todos.', alt: 'Catálogo online de máquinas para gimnasio, recorrido de arriba a abajo' },
 ];
 
 export const SYSTEMS = [
