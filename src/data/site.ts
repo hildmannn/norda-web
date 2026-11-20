@@ -1,7 +1,7 @@
 // ─── Datos de contacto: reemplazar los placeholders acá y se actualiza todo el sitio ───
 export const WA_NUMBER = '549XXXXXXXXXX';
 export const EMAIL = '[EMAIL]';
-export const HORARIO = '[HORARIO]';
+export const HORARIO = 'lunes a viernes de 7:30 a 13:30 y de 16 a 21 h';
 export const FECHA_LEGAL = '[FECHA]';
 export const INSTAGRAM = 'https://instagram.com/norda.latam';
 
@@ -47,7 +47,7 @@ export const COMBO_INCLUDES = [
 
 export const EXAMPLES = [
   { ph: 'EJEMPLO WEB 1', title: 'Web para un local', desc: 'Horarios, ubicación, fotos del lugar y un botón para que te escriban.', alt: 'Ejemplo de página web para un local a la calle' },
-  { ph: 'EJEMPLO WEB 2', title: 'Web para un profesional', desc: 'Tus servicios, tu experiencia y turnos que se piden por WhatsApp.', alt: 'Ejemplo de página web para un profesional o consultorio' },
+  { ph: 'EJEMPLO WEB 2', shot: 'img/ejemplo-mile-ramello.webp', title: 'Web para un profesional', desc: 'Tus servicios, tu experiencia y turnos que se piden por WhatsApp.', alt: 'Página web de una nutricionista, recorrida de arriba a abajo' },
   { ph: 'EJEMPLO WEB 3', title: 'Catálogo online', desc: 'Tus productos con foto y precio, para que te pidan sin vueltas.', alt: 'Ejemplo de catálogo online de productos' },
 ];
 

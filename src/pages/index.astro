@@ -5,7 +5,7 @@ import Button from '../components/Button.astro';
 import Highlight from '../components/Highlight.astro';
 import Placeholder from '../components/Placeholder.astro';
 import {
-  wa, WA_NUMBER, EMAIL, HORARIO, INSTAGRAM, SHOW_PROYECTOS,
+  wa, BASE, WA_NUMBER, EMAIL, HORARIO, INSTAGRAM, SHOW_PROYECTOS,
   WEB_INCLUDES, COMBO_INCLUDES, EXAMPLES, SYSTEMS, STEPS, PROJECTS, TEAM, FAQS,
 } from '../data/site';
 
@@ -62,14 +62,14 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
           <h2 class="h2">Tu negocio, abierto las <span class="nowrap"><Highlight>24 horas</Highlight>.</span></h2>
           <p class="lead">Hoy tus clientes te buscan en Google antes de ir a verte. Con una web propia te encuentran más fácil, te consultan en un toque y ven un negocio serio, aunque sea de noche o domingo.</p>
           <ul class="benefits">
-            {[['search', 'Que te encuentren en Google'], ['message-circle', 'Que te consulten fácil, por WhatsApp'], ['badge-check', 'Que te vean como un negocio profesional']].map(([icon, text]) => (
+            {[['search', 'Que te encuentren en Google'], ['badge-check', 'Que te vean como un negocio profesional'], ['layout-grid', 'Tu catálogo online, siempre a mano'], ['shopping-cart', 'Que te compren directo desde la web']].map(([icon, text]) => (
               <li><span class="blob-ico" style="width:44px;height:44px;background:var(--lavanda-100)"><Icon name={icon} size={20} /></span>{text}</li>
             ))}
           </ul>
           <div class="forwho">
             <h3>¿Para quién es?</h3>
             <div class="chips">
-              {[['store', 'Comercios'], ['utensils', 'Gastronomía'], ['stethoscope', 'Profesionales y consultorios'], ['sprout', 'Emprendimientos']].map(([icon, text]) => (
+              {[['store', 'Comercios'], ['utensils', 'Gastronomía'], ['stethoscope', 'Profesionales y consultorios'], ['sprout', 'Emprendimientos'], ['building-2', 'Empresas y pymes']].map(([icon, text]) => (
                 <span class="chip"><Icon name={icon} size={16} />{text}</span>
               ))}
               <span class="chip chip-more"><Icon name="plus" size={16} />Y cualquier otro rubro</span>
@@ -147,7 +147,9 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
             <article class="ex-card lift">
               <div class="browser">
                 <div class="browser-dots"><span></span><span></span><span></span></div>
-                <Placeholder label={e.ph} alt={e.alt} />
+                {'shot' in e && e.shot
+                  ? <div class="shot"><img src={BASE + e.shot} alt={e.alt} loading="lazy" decoding="async" width="900" height="2626" /></div>
+                  : <Placeholder label={e.ph} alt={e.alt} />}
               </div>
               <div class="card-txt">
                 <h4>{e.title}</h4>
@@ -355,7 +357,6 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
               <textarea class="input" id="f-msg" name="msg" rows="4" placeholder="Qué hace tu negocio y qué te gustaría resolver"></textarea>
             </div>
             <Button type="submit" size="lg" full iconRight="arrow-up-right">Enviar por WhatsApp</Button>
-            <p class="form-note">* Campo obligatorio. Se abre WhatsApp en una pestaña nueva.</p>
           </form>
 
           <div class="sent" id="form-sent" role="status" hidden>

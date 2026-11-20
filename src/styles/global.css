@@ -236,6 +236,11 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:none;box-shado
 .browser-dots{display:flex;gap:5px;padding:4px 6px 8px}
 .browser-dots span{width:8px;height:8px;border-radius:50%;background:var(--crema-300)}
 .browser .ph{aspect-ratio:16/10;border-radius:14px}
+.shot{aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:var(--crema-50)}
+.shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0;animation:shot-scroll 24s ease-in-out infinite}
+.ex-card:hover .shot img{animation-play-state:paused}
+@keyframes shot-scroll{0%,8%{object-position:50% 0}46%,54%{object-position:50% 100%}92%,100%{object-position:50% 0}}
+@media (prefers-reduced-motion:reduce){.shot img{animation:none}}
 .card-txt{display:flex;flex-direction:column;gap:6px;padding:0 12px}
 .card-txt h4{font-family:var(--font-display);font-weight:700;font-size:21px;letter-spacing:-0.015em}
 .card-txt p{font-size:16px;line-height:1.5;color:var(--tinta-700);text-wrap:pretty}
