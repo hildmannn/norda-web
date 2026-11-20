@@ -38,6 +38,13 @@ export const WEB_INCLUDES = [
   '2 rondas de cambios incluidas',
 ];
 
+export const COMBO_INCLUDES = [
+  'Página web a medida de tu negocio',
+  'Catálogo online para vender tus productos',
+  'Sistema para controlar tu stock',
+  'Funciona en celulares y computadoras',
+];
+
 export const EXAMPLES = [
   { ph: 'EJEMPLO WEB 1', title: 'Web para un local', desc: 'Horarios, ubicación, fotos del lugar y un botón para que te escriban.', alt: 'Ejemplo de página web para un local a la calle' },
   { ph: 'EJEMPLO WEB 2', title: 'Web para un profesional', desc: 'Tus servicios, tu experiencia y turnos que se piden por WhatsApp.', alt: 'Ejemplo de página web para un profesional o consultorio' },
@@ -75,8 +82,8 @@ export const TEAM = [
 ];
 
 export const FAQS: [string, string][] = [
-  ['¿Cuánto cuesta una página web?', 'Arranca desde USD 199 sin IVA. El precio final depende de lo que necesites: charlamos y te pasamos un presupuesto cerrado, para que sepas desde el principio cuánto vas a pagar.'],
-  ['¿Qué incluye la web desde USD 199?', 'Diseño a medida de hasta 5 secciones, adaptada a celular y compu, botón de WhatsApp y formulario de contacto, ubicación en Google Maps, vínculo con tus redes, optimización básica para Google y 2 rondas de cambios.'],
+  ['¿Cuánto cuesta una página web?', 'Arranca desde USD 99 sin IVA. El precio final depende de lo que necesites: charlamos y te pasamos un presupuesto cerrado, para que sepas desde el principio cuánto vas a pagar.'],
+  ['¿Qué incluye la web desde USD 99?', 'Diseño a medida de hasta 5 secciones, adaptada a celular y compu, botón de WhatsApp y formulario de contacto, ubicación en Google Maps, vínculo con tus redes, optimización básica para Google y 2 rondas de cambios.'],
   ['¿El dominio y el hosting están incluidos?', 'No, se cotizan aparte porque dependen de lo que elijas. Te ayudamos a elegir el nombre de tu web y nos encargamos de configurar todo.'],
   ['¿Cuánto tarda en estar lista mi web?', 'Depende de cada proyecto. En la propuesta te decimos los tiempos concretos, y si algo se demora, te avisamos antes.'],
   ['¿Cuánto cuesta un sistema a medida?', 'Depende de lo que necesites resolver. Nos contás cómo trabaja tu negocio y te armamos una propuesta clara, sin compromiso.'],

@@ -6,11 +6,11 @@ import Highlight from '../components/Highlight.astro';
 import Placeholder from '../components/Placeholder.astro';
 import {
   wa, WA_NUMBER, EMAIL, HORARIO, INSTAGRAM, SHOW_PROYECTOS,
-  WEB_INCLUDES, EXAMPLES, SYSTEMS, STEPS, PROJECTS, TEAM, FAQS,
+  WEB_INCLUDES, COMBO_INCLUDES, EXAMPLES, SYSTEMS, STEPS, PROJECTS, TEAM, FAQS,
 } from '../data/site';
 
 const title = 'Norda · Páginas web y sistemas a medida';
-const description = 'Páginas web a medida desde USD 199 y sistemas para comercios, profesionales y pymes. Te explicamos todo fácil y te acompañamos. Escribinos por WhatsApp.';
+const description = 'Páginas web a medida desde USD 99 y sistemas para comercios, profesionales y pymes. Te explicamos todo fácil y te acompañamos. Escribinos por WhatsApp.';
 const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
 ---
 <Layout title={title} description={description}>
@@ -78,23 +78,66 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
           </div>
         </div>
 
-        <article class="price-card">
-          <div class="stack" style="gap:10px">
-            <h3>Web a medida</h3>
-            <div class="price-row">
-              <span style="font-size:18px;font-weight:600" class="muted">Desde</span>
-              <span class="price-big">USD 199</span>
-              <span style="font-size:15px;font-weight:600" class="muted">sin IVA</span>
+        <section class="price-car" id="price-car" aria-roledescription="carrusel" aria-label="Precios">
+          <div class="pc-bar">
+            <div class="pc-progress" role="tablist" aria-label="Elegí una opción">
+              {['Web a medida', 'Combo web + stock'].map((label, i) => (
+                <button class="pc-seg" role="tab" id={`pc-tab${i}`} aria-controls={`pc-slide${i}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} aria-label={label}>
+                  <span class="pc-fill"></span>
+                </button>
+              ))}
+            </div>
+            <div class="pc-nav">
+              <button class="pc-arrow" data-dir="-1" aria-label="Anterior"><Icon name="chevron-left" size={20} strokeWidth={2.2} /></button>
+              <button class="pc-arrow" data-dir="1" aria-label="Siguiente"><Icon name="chevron-right" size={20} strokeWidth={2.2} /></button>
             </div>
           </div>
-          <ul class="incl">
-            {WEB_INCLUDES.map((f) => (
-              <li><span class="check" style="width:24px;height:24px;background:var(--lima-300)"><Icon name="check" size={14} strokeWidth={2.5} /></span>{f}</li>
-            ))}
-          </ul>
-          <p class="note">Dominio y hosting se cotizan aparte. Tienda online, turnos online o funciones especiales: se suman al presupuesto.</p>
-          <Button size="lg" full iconRight="arrow-right" href={wa('Hola Norda! Quiero una página web desde USD 199. ¿Me contás más?')}>Quiero mi web</Button>
-        </article>
+
+          <div class="pc-slides">
+            <article class="price-card pc-slide is-active" id="pc-slide0" role="tabpanel" aria-labelledby="pc-tab0">
+              <div class="stack" style="gap:10px">
+                <div class="web-head">
+                  <h3>Web a medida</h3>
+                  <s class="combo-old web-old" aria-label="Antes USD 400">USD 400</s>
+                </div>
+                <div class="price-row">
+                  <span style="font-size:18px;font-weight:600" class="muted">Desde</span>
+                  <span class="price-big">USD 99</span>
+                  <span style="font-size:15px;font-weight:600" class="muted">sin IVA</span>
+                </div>
+              </div>
+              <ul class="incl">
+                {WEB_INCLUDES.map((f) => (
+                  <li><span class="check" style="width:24px;height:24px;background:var(--lima-300)"><Icon name="check" size={14} strokeWidth={2.5} /></span>{f}</li>
+                ))}
+              </ul>
+              <p class="note">Dominio y hosting se cotizan aparte. Tienda online, turnos online o funciones especiales: se suman al presupuesto.</p>
+              <Button size="lg" full iconRight="arrow-right" href={wa('Hola Norda! Quiero una página web desde USD 99. ¿Me contás más?')}>Quiero mi web</Button>
+            </article>
+
+            <article class="price-card pc-slide pc-combo" id="pc-slide1" role="tabpanel" aria-labelledby="pc-tab1" inert>
+              <div class="combo-box">
+                <span class="combo-tag">Combo</span>
+                <h3>Vendé online y tené tu stock al día</h3>
+                <div class="combo-sub">
+                  <span>Web + sistema de stock desde</span>
+                  <s class="combo-old" aria-label="Antes USD 1000">USD 1000</s>
+                </div>
+                <div class="price-row">
+                  <span class="price-big combo-price">USD 300</span>
+                  <span style="font-size:15px;font-weight:600" class="combo-iva">sin IVA</span>
+                </div>
+              </div>
+              <ul class="incl">
+                {COMBO_INCLUDES.map((f) => (
+                  <li><span class="check" style="width:24px;height:24px;background:var(--lima-300)"><Icon name="check" size={14} strokeWidth={2.5} /></span>{f}</li>
+                ))}
+              </ul>
+              <p class="note">Dominio y hosting se cotizan aparte. Te mostramos cómo usar todo antes de entregarlo.</p>
+              <Button size="lg" full iconRight="arrow-up-right" href={wa('Hola Norda! Quiero consultar por el combo web + sistema de stock de USD 300.')}>Consultá el combo</Button>
+            </article>
+          </div>
+        </section>
       </div>
 
       <div class="examples stack" style="gap:24px" data-reveal>
@@ -385,6 +428,60 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
   window.addEventListener('resize', onScroll);
   onScroll();
   updateActive();
+
+  // ── Carrusel de precios: avanza solo con la barra de carga; se pausa con hover/foco o fuera de pantalla
+  const car = $('#price-car');
+  const segs = $$<HTMLButtonElement>('.pc-seg', car);
+  const slides = $$('.pc-slide', car);
+  let cur = 0;
+  const go = (n: number, dir = 1) => {
+    n = (n + slides.length) % slides.length;
+    if (n === cur) return;
+    car.style.setProperty('--pc-off', `${dir * 24}px`);
+    slides.forEach((s, i) => {
+      s.classList.toggle('is-active', i === n);
+      s.inert = i !== n;
+    });
+    segs.forEach((b, i) => {
+      b.setAttribute('aria-selected', String(i === n));
+      b.tabIndex = i === n ? 0 : -1;
+      b.classList.toggle('done', i < n);
+      // reinicia la animación de la barra
+      const f = b.firstElementChild as HTMLElement;
+      f.style.animation = 'none';
+      f.getBoundingClientRect();
+      f.style.animation = '';
+    });
+    cur = n;
+  };
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) car.classList.add('no-auto');
+  segs.forEach((b, i) => {
+    b.addEventListener('click', () => go(i, i > cur ? 1 : -1));
+    b.firstElementChild!.addEventListener('animationend', () => go(cur + 1, 1));
+    b.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      const d = e.key === 'ArrowRight' ? 1 : -1;
+      go(cur + d, d);
+      segs[cur].focus();
+    });
+  });
+  $$<HTMLButtonElement>('.pc-arrow', car).forEach((b) => b.addEventListener('click', () => {
+    const d = Number(b.dataset.dir);
+    go(cur + d, d);
+  }));
+  const pausers = new Set<string>();
+  const setPause = (k: string, on: boolean) => {
+    if (on) pausers.add(k); else pausers.delete(k);
+    car.classList.toggle('paused', pausers.size > 0);
+  };
+  car.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') setPause('hover', true); });
+  car.addEventListener('pointerleave', () => setPause('hover', false));
+  car.addEventListener('focusin', () => setPause('focus', true));
+  car.addEventListener('focusout', (e) => { if (!car.contains(e.relatedTarget as Node)) setPause('focus', false); });
+  if ('IntersectionObserver' in window) {
+    setPause('view', true);
+    new IntersectionObserver(([e]) => setPause('view', !e.isIntersecting), { threshold: 0.4 }).observe(car);
+  }
 
   // ── FAQ: una abierta a la vez
   const faqBtns = $$<HTMLButtonElement>('.faq-btn');
