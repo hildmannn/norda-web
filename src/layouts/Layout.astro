@@ -11,10 +11,8 @@ interface Props {
   description: string;
   /** Ruta relativa a BASE (sin barra inicial): '' para la home, '<slug>/' para una página de producto. */
   path?: string;
-  /** slug del producto activo, para marcar su tab. */
-  current?: string;
 }
-const { title, description, path = '', current } = Astro.props;
+const { title, description, path = '' } = Astro.props;
 const home = path === '';
 const url = new URL(BASE + path, Astro.site);
 const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
@@ -23,9 +21,11 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
 const sec = (id: string) => (home ? `#${id}` : `${BASE}#${id}`);
 const prod = (slug: string) => `${BASE}${slug}/`;
 
-const footer = [
-  { title: 'Servicios', links: [['Páginas web', sec('webs')], ['Sistemas a medida', sec('sistemas')]] },
-  { title: 'Norda', links: [['Cómo trabajamos', sec('proceso')], ['Nosotros', sec('nosotros')], ['Proyectos', sec('proyectos')], ['Preguntas', sec('preguntas')]] },
+// [texto, href, pronto?]: con `pronto` se muestra la etiqueta "Pronto" (productos en desarrollo).
+type FootLink = [label: string, href: string, soon?: boolean];
+const footer: { title: string; links: FootLink[] }[] = [
+  { title: 'Servicios', links: [['Páginas web', sec('webs')], ['Sistemas a medida', sec('sistemas')], ...PRODUCTS.map((p): FootLink => [p.name, prod(p.slug), true])] },
+  { title: 'Norda', links: [['Cómo trabajamos', sec('proceso')], ['Ejemplos', sec('ejemplos')], ['Nosotros', sec('nosotros')], ['Proyectos', sec('proyectos')], ['Preguntas', sec('preguntas')]] },
   { title: 'Contacto', links: [['WhatsApp', WA_CONSULTA], ['Instagram', INSTAGRAM], ['Email', `mailto:${EMAIL}`]] },
 ];
 const underline = '<path pathLength="1" d="M2 6.5C22 3 46 3.5 64 4.8S90 6.5 98 3.6" fill="none" stroke="var(--lima-500)" stroke-width="3.2" stroke-linecap="round" />';
@@ -62,13 +62,6 @@ const underline = '<path pathLength="1" d="M2 6.5C22 3 46 3.5 64 4.8S90 6.5 98 3
         {NAV.map(([label, id]) => (
           <a href={sec(id)} class="hdr-link" data-nav={id}>{label}<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none" set:html={underline} /></a>
         ))}
-        <span class="hdr-sep" aria-hidden="true"></span>
-        {PRODUCTS.map((p) => (
-          <a href={prod(p.slug)} class="hdr-link hdr-prod" aria-current={current === p.slug ? 'page' : undefined}>
-            <span class="hdr-prod-name">{p.name}<svg aria-hidden="true" viewBox="0 0 100 10" preserveAspectRatio="none" set:html={underline} /></span>
-            <span class="pill-pronto">Pronto</span>
-          </a>
-        ))}
       </div>
       <div class="hdr-right">
         <Button size="sm" href={sec('contacto')} class="hdr-cta">Escribinos</Button>
@@ -84,11 +77,6 @@ const underline = '<path pathLength="1" d="M2 6.5C22 3 46 3.5 64 4.8S90 6.5 98 3
     </div>
     <div class="mmenu-links">
       {NAV.map(([label, id]) => <a href={sec(id)} data-close-menu>{label}<Icon name="arrow-right" size={22} /></a>)}
-      {PRODUCTS.map((p) => (
-        <a href={prod(p.slug)} data-close-menu aria-current={current === p.slug ? 'page' : undefined}>
-          <span class="mmenu-prod">{p.name}<span class="pill-pronto">Pronto</span></span><Icon name="arrow-right" size={22} />
-        </a>
-      ))}
     </div>
     <Button size="lg" full iconLeft="message-circle" href={WA_CONSULTA}>Escribinos por WhatsApp</Button>
   </div>
@@ -110,12 +98,12 @@ const underline = '<path pathLength="1" d="M2 6.5C22 3 46 3.5 64 4.8S90 6.5 98 3
             <button class="foot-toggle" aria-expanded="false" aria-controls={`foot-${i}`}>{c.title}<span><Icon name="plus" size={20} /></span></button>
             <h3>{c.title}</h3>
             <ul id={`foot-${i}`}>
-              {c.links.map(([label, href]) => {
+              {c.links.map(([label, href, soon]) => {
                 const ext = href.startsWith('http');
                 const proy = href.endsWith('#proyectos');
                 return (
                   <li data-proyectos={proy ? '' : undefined} hidden={proy && !SHOW_PROYECTOS}>
-                    <a href={href} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>{label}</a>
+                    <a href={href} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>{label}{soon && <span class="pill-pronto">Pronto</span>}</a>
                   </li>
                 );
               })}
@@ -176,7 +164,7 @@ const underline = '<path pathLength="1" d="M2 6.5C22 3 46 3.5 64 4.8S90 6.5 98 3
   burger.addEventListener('click', () => setMenu(true));
   $('#menu-close').addEventListener('click', () => setMenu(false));
   $$('[data-close-menu]', mmenu).forEach((a) => a.addEventListener('click', () => setMenu(false)));
-  window.addEventListener('resize', () => { if (window.innerWidth >= 1200 && !mmenu.hidden) setMenu(false); });
+  window.addEventListener('resize', () => { if (window.innerWidth >= 1024 && !mmenu.hidden) setMenu(false); });
 
   // ── Footer: acordeón en mobile (uno a la vez)
   const footBtns = $$<HTMLButtonElement>('.foot-toggle');

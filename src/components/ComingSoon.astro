@@ -11,7 +11,7 @@ interface Props { slug: (typeof PRODUCTS)[number]['slug'] }
 const product = PRODUCTS.find((p) => p.slug === Astro.props.slug)!;
 const { slug, name, tagline } = product;
 ---
-<Layout title={`${name} · Próximamente | Norda`} description={tagline} path={`${slug}/`} current={slug}>
+<Layout title={`${name} · Próximamente | Norda`} description={tagline} path={`${slug}/`}>
   <section class="soon">
     <div class="blob" aria-hidden="true" style="top:-120px;right:-140px;width:560px;height:480px;background:var(--lavanda-300);opacity:.45"></div>
     <div class="blob blob-b" aria-hidden="true" style="bottom:-180px;left:-160px;width:520px;height:440px;background:var(--lima-300);opacity:.55"></div>

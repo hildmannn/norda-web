@@ -21,7 +21,7 @@ export const NAV = [
   ['Preguntas', 'preguntas'],
 ] as const;
 
-// Productos en desarrollo: tabs del navbar con etiqueta "Pronto" y página /<slug> de Próximamente.
+// Productos en desarrollo: se muestran con etiqueta "Pronto" en la sección Sistemas y en el footer, y tienen su página /<slug> de Próximamente.
 export const PRODUCTS = [
   { slug: 'nordi', name: 'Nordi', tagline: 'Un sistema de gestión simple para tu negocio.' },
   { slug: 'agendi', name: 'Agendi', tagline: 'Tu turnero online: tus clientes reservan solos, vos te olvidás de la agenda.' },

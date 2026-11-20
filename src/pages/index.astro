@@ -6,7 +6,7 @@ import Highlight from '../components/Highlight.astro';
 import Placeholder from '../components/Placeholder.astro';
 import {
   wa, BASE, WA_NUMBER, EMAIL, HORARIO, INSTAGRAM, SHOW_PROYECTOS,
-  WEB_INCLUDES, COMBO_INCLUDES, EXAMPLES, SYSTEMS, STEPS, PROJECTS, TEAM, FAQS,
+  WEB_INCLUDES, COMBO_INCLUDES, EXAMPLES, SYSTEMS, PRODUCTS, STEPS, PROJECTS, TEAM, FAQS,
 } from '../data/site';
 
 const title = 'Norda · Páginas web y sistemas a medida';
@@ -25,6 +25,7 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
         <div class="hero-btns">
           <Button size="lg" iconRight="arrow-right" fullMobile href={wa('Hola Norda! Quiero una página web para mi negocio.')}>Quiero mi web</Button>
           <Button size="lg" variant="secondary" fullMobile href={wa('Hola Norda! Necesito un sistema a medida para mi negocio.')}>Necesito un sistema</Button>
+          <a href="#ejemplos" class="hero-more">O mirá algunos ejemplos<Icon name="arrow-down" size={18} strokeWidth={2.2} /></a>
         </div>
         <ul class="trust">
           <li><Icon name="heart-handshake" size={18} />Atención personalizada</li>
@@ -55,7 +56,7 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
 
   <!-- ─── Páginas web ─── -->
   <section id="webs" class="sec sec-white">
-    <div class="wrap stack" style="gap:clamp(56px,6vw,80px)">
+    <div class="wrap">
       <div class="webs-top" data-reveal>
         <div class="webs-copy">
           <span class="eyebrow">Páginas web</span>
@@ -139,49 +140,6 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
           </div>
         </section>
       </div>
-
-      <section class="examples ex-car" id="ex-car" aria-roledescription="carrusel" aria-label="Ejemplos de páginas web" data-reveal>
-        <div class="ex-head">
-          <h3>Algunas ideas de lo que podemos hacer</h3>
-          <div class="ex-nav">
-            <span class="ex-count" aria-hidden="true"><b class="ex-cur">01</b> / {String(EXAMPLES.length).padStart(2, '0')}</span>
-            <button class="pc-arrow ex-arrow" data-dir="-1" aria-label="Ejemplo anterior"><Icon name="chevron-left" size={20} strokeWidth={2.2} /></button>
-            <button class="pc-arrow ex-arrow" data-dir="1" aria-label="Ejemplo siguiente"><Icon name="chevron-right" size={20} strokeWidth={2.2} /></button>
-          </div>
-        </div>
-        <div class="ex-viewport">
-          <div class="ex-track">
-            {EXAMPLES.map((e, i) => {
-              const href = 'href' in e ? e.href : undefined;
-              const Tag = href ? 'a' : 'div';
-              return (
-                <article class:list={['ex-slide', i === 0 && 'is-active']} aria-roledescription="diapositiva" aria-label={`${i + 1} de ${EXAMPLES.length}: ${e.title}`} inert={i !== 0}>
-                  <Tag class:list={['browser ex-media', href && 'ex-link']} href={href} target={href && '_blank'} rel={href && 'noopener'} tabindex={href ? -1 : undefined} aria-hidden={href ? 'true' : undefined}>
-                    <div class="browser-dots"><span></span><span></span><span></span></div>
-                    {'shot' in e && e.shot
-                      ? <div class="shot"><img src={BASE + e.shot} alt={e.alt} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" /></div>
-                      : <Placeholder label={e.ph} alt={e.alt} />}
-                    {href && <span class="ex-cta" aria-hidden="true"><span>Ver página<Icon name="arrow-up-right" size={18} strokeWidth={2.2} /></span></span>}
-                  </Tag>
-                  <div class="ex-info">
-                    <span class="ex-num">{String(i + 1).padStart(2, '0')}</span>
-                    <h4>{e.title}</h4>
-                    <p>{e.desc}</p>
-                    {href
-                      ? <Button variant="secondary" iconRight="arrow-up-right" href={href}>Ver página</Button>
-                      : <Button variant="secondary" iconRight="arrow-right" href={wa(`Hola Norda! Me interesa una ${e.title.toLowerCase()}.`)}>Quiero una así</Button>}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-        <div class="ex-dots" role="tablist" aria-label="Elegí un ejemplo">
-          {EXAMPLES.map((e, i) => (
-            <button class="ex-dot" role="tab" aria-selected={i === 0 ? 'true' : 'false'} aria-label={e.title}></button>
-          ))}
-        </div>
-      </section>
     </div>
   </section>
 
@@ -213,6 +171,20 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
           </div>
           <Button size="lg" iconRight="arrow-right" fullMobile href={wa('Hola Norda! Tengo una idea para un sistema a medida y quiero consultarles.')}>Contanos tu idea</Button>
         </div>
+        <div class="sys-prods">
+          <h3>Además, estamos armando nuestros propios sistemas, listos para usar:</h3>
+          <div class="sys-prods-list">
+            {PRODUCTS.map((p) => (
+              <a href={`${BASE}${p.slug}/`} class="sys-prod">
+                <span class="stack" style="gap:4px">
+                  <span class="sys-prod-name">{p.name}<span class="pill-pronto">Pronto</span></span>
+                  <span class="sys-prod-desc">{p.tagline}</span>
+                </span>
+                <Icon name="arrow-right" size={20} />
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -241,6 +213,57 @@ const WA_CONSULTA = wa('Hola Norda! Quiero hacer una consulta.');
       <div>
         <Button variant="secondary" size="lg" iconRight="arrow-down" fullMobile href="#contacto">Empecemos por el paso 1</Button>
       </div>
+    </div>
+  </section>
+
+  <!-- ─── Ejemplos ─── -->
+  <section id="ejemplos" class="sec">
+    <div class="wrap">
+      <section class="ex-car" id="ex-car" aria-roledescription="carrusel" aria-label="Ejemplos de páginas web" data-reveal>
+        <div class="ex-head">
+          <div class="sec-head">
+            <span class="eyebrow eyebrow-lav">Ejemplos</span>
+            <h2 class="h2">Algunas ideas de lo que <span class="nowrap"><Highlight>podemos hacer</Highlight>.</span></h2>
+          </div>
+          <div class="ex-nav">
+            <span class="ex-count" aria-hidden="true"><b class="ex-cur">01</b> / {String(EXAMPLES.length).padStart(2, '0')}</span>
+            <button class="pc-arrow ex-arrow" data-dir="-1" aria-label="Ejemplo anterior"><Icon name="chevron-left" size={20} strokeWidth={2.2} /></button>
+            <button class="pc-arrow ex-arrow" data-dir="1" aria-label="Ejemplo siguiente"><Icon name="chevron-right" size={20} strokeWidth={2.2} /></button>
+          </div>
+        </div>
+        <div class="ex-viewport">
+          <div class="ex-track">
+            {EXAMPLES.map((e, i) => {
+              const href = 'href' in e ? e.href : undefined;
+              const Tag = href ? 'a' : 'div';
+              return (
+                <article class:list={['ex-slide', i === 0 && 'is-active']} aria-roledescription="diapositiva" aria-label={`${i + 1} de ${EXAMPLES.length}: ${e.title}`} inert={i !== 0}>
+                  <Tag class:list={['browser ex-media', href && 'ex-link']} href={href} target={href && '_blank'} rel={href && 'noopener'} tabindex={href ? -1 : undefined} aria-hidden={href ? 'true' : undefined}>
+                    <div class="browser-dots"><span></span><span></span><span></span></div>
+                    {'shot' in e && e.shot
+                      ? <div class="shot"><img src={BASE + e.shot} alt={e.alt} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" /></div>
+                      : <Placeholder label={e.ph} alt={e.alt} />}
+                    {href && <span class="ex-cta" aria-hidden="true"><span>Ver página<Icon name="arrow-up-right" size={18} strokeWidth={2.2} /></span></span>}
+                  </Tag>
+                  <div class="ex-info">
+                    <span class="ex-num">{String(i + 1).padStart(2, '0')}</span>
+                    <h3>{e.title}</h3>
+                    <p>{e.desc}</p>
+                    {href
+                      ? <Button variant="secondary" iconRight="arrow-up-right" href={href}>Ver página</Button>
+                      : <Button variant="secondary" iconRight="arrow-right" href={wa(`Hola Norda! Me interesa una ${e.title.toLowerCase()}.`)}>Quiero una así</Button>}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+        <div class="ex-dots" role="tablist" aria-label="Elegí un ejemplo">
+          {EXAMPLES.map((e, i) => (
+            <button class="ex-dot" role="tab" aria-selected={i === 0 ? 'true' : 'false'} aria-label={e.title}></button>
+          ))}
+        </div>
+      </section>
     </div>
   </section>
 

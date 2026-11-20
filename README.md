@@ -1,7 +1,7 @@
 # Norda · sitio web
 
 Landing one-page de **Norda** (Río Cuarto, Córdoba): páginas web a medida y sistemas a medida.
-Nordi y Agendi figuran solo como tabs "Pronto" con su página de Próximamente (`/nordi`, `/agendi`).
+Nordi y Agendi figuran con la etiqueta "Pronto" en la sección Sistemas y en el footer, con su página de Próximamente (`/nordi`, `/agendi`).
 La versión anterior, con la sección completa de Nordi y sus planes, quedó en la rama `backup/con-nordi` y en la carpeta `backup-con-nordi/`.
 Hecha con [Astro](https://astro.build) (sitio estático) a partir del diseño de Claude Design.
 
