@@ -238,7 +238,18 @@ a:focus-visible,button:focus-visible,select:focus-visible{outline:none;box-shado
 .browser .ph{aspect-ratio:16/10;border-radius:14px}
 .shot{aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:var(--crema-50)}
 .shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0;animation:shot-scroll 24s ease-in-out infinite}
-.ex-card:hover .shot img{animation-play-state:paused}
+.ex-card:hover .shot img,.ex-link:focus-visible .shot img{animation-play-state:paused}
+.ex-link{color:inherit;text-decoration:none}
+.ex-link:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.browser{position:relative}
+.ex-cta{position:absolute;inset:32px 8px 8px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--lavanda-300) 35%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transition:opacity var(--dur-base) var(--ease-suave)}
+.ex-cta>span{display:flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;background:var(--tinta-900);color:#fff;font-weight:700;font-size:16px;box-shadow:var(--shadow-md);transform:translateY(8px);transition:transform var(--dur-base) var(--ease-rebote)}
+.ex-link:hover .ex-cta,.ex-link:focus-visible .ex-cta{opacity:1}
+.ex-link:hover .ex-cta>span,.ex-link:focus-visible .ex-cta>span{transform:none}
+@media (hover:none){
+  .ex-cta{opacity:1;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;align-items:flex-end;justify-content:flex-end;padding:10px}
+  .ex-cta>span{transform:none;padding:8px 14px;font-size:14px}
+}
 @keyframes shot-scroll{0%,8%{object-position:50% 0}46%,54%{object-position:50% 100%}92%,100%{object-position:50% 0}}
 @media (prefers-reduced-motion:reduce){.shot img{animation:none}}
 .card-txt{display:flex;flex-direction:column;gap:6px;padding:0 12px}
